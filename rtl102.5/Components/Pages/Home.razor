@@ -1,0 +1,54 @@
+﻿@page "/"
+@using rtl1025.Components.Models
+@rendermode InteractiveServer
+<PageTitle>UnicaRadio</PageTitle>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Benvenuto nella Pagina Radio</h1>
+    <p>
+        Qui puoi visualizzare tutte le liste dei brani
+    </p>
+    <div class="liste-brani">
+        <h2>Brani Disponibili</h2>
+        <p></p>
+        <h1>Opzioni Disponibili</h1>
+        <button @onclick="Play">Play</button>
+        <form id="inserimento-brano" action="post">
+            <textarea name="brano-daaggiungere" id="inserisci-brano-text">Inserisci il brano da aggiungere</textarea>
+            <button @onclick="inseriscibrano">Inserisci il brano</button>
+        </form>
+        <form id="rimuovi-brano" action="post">
+            <textarea name="brano-darimuovere" id="rimuovi-brano-text">Inserisci il brano da rimuovere</textarea>
+            <button @onclick="rimuovibrano">Cancella Brano</button>
+        </form>
+        <p>Durata:</p>
+        <p>@durata</p>
+    </div>
+</body>
+</html>
+
+@code
+{
+    Radio radio = new Radio();
+    int durata = 0;
+    string risultato = string.Empty;
+
+    public void inseriscibrano(Brano brano)
+    {
+        risultato += (radio.InserimentoBrano(brano));
+
+    }
+    public void rimuovibrano(Brano brano)
+    {
+        risultato += (radio.CancellaBrano(brano));
+    }
+
+    public void Play()
+    {
+        risultato += (radio.Play());
+    }
+}
